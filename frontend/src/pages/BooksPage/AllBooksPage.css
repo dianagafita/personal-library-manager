@@ -1,0 +1,11 @@
+.books-page-container {
+  margin-left: 1rem;
+}
+
+@media (min-width: 400px) {
+  .books-page-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 1rem;
+  }
+}

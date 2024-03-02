@@ -1,0 +1,35 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap");
+
+.home-page {
+  background: linear-gradient(
+      to top,
+      rgba(245, 246, 252, 0.2),
+      rgba(44, 8, 50, 0.7)
+    ),
+    url("../../assets/background.webp");
+  background-size: contain;
+  height: 30vh;
+  position: relative;
+}
+
+.home-page-title-container {
+  position: absolute;
+  top: 2rem;
+  font-family: "Noto Serif";
+  color: white;
+  text-align: center;
+}
+
+.home-page-title-container h1 {
+  font-weight: 600;
+  font-size: 2rem;
+  margin-bottom: 4rem;
+}
+
+.home-page-title-container a {
+  color: white;
+  text-decoration: none;
+  margin-left: 15rem;
+  font-weight: 500;
+}
