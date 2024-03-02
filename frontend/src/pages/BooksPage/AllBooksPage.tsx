@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import { CardActions, CardHeader } from "@mui/material";
 import "./AllBooksPage.css";
 import { Link } from "react-router-dom";
-import BookButton from "../../components/NavigationBar/BookButton";
+import BookButton from "../../components/BookButton";
 import useSWR from "swr";
 import { allBooks } from "../../services/bookServices";
 import Collapse from "@mui/material/Collapse";

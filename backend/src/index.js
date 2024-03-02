@@ -52,16 +52,16 @@ app.post("/books", upload.single("img"), (req, res) => {
 
 // Get all books
 app.get("/books", async (req, res) => {
-  console.log("ok");
+  // console.log("ok");
   // const books = await BookModel.find();
   res.json(books);
-  console.log(books);
+  // console.log(books);
 });
 
 app.get("/books/:id", async (req, res) => {
   const bookId = parseInt(req.params.id);
   const book = books.find((book) => book.id === bookId);
-  console.log("book", book);
+  // console.log("book", book);
   res.json(book);
 });
 
@@ -73,15 +73,17 @@ app.get("/books/:id", async (req, res) => {
 // });
 
 // // Update a book
-// app.put("/books/:id", (req, res) => {
-//   const index = books.findIndex((book) => book.id === parseInt(req.params.id));
-//   if (index >= 0) {
-//     books[index] = { ...books[index], ...req.body };
-//     res.json(books[index]);
-//   } else {
-//     res.status(404).json({ message: "Book not found" });
-//   }
-// });
+
+app.put("/books/:id", upload.single("img"), (req, res) => {
+  const index = books.findIndex((book) => book.id === parseInt(req.params.id));
+  if (index >= 0) {
+    books[index] = { ...books[index], ...req.body };
+    console.log(books[index]);
+    res.json(books[index]);
+  } else {
+    res.status(404).json({ message: "Book not found" });
+  }
+});
 
 // // Delete a book
 // app.delete("/books/:id", (req, res) => {

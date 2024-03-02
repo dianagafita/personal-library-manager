@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { TextField, Box, InputLabel, Input } from "@mui/material";
 import { useFormik } from "formik";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import BookButton from "../../components/NavigationBar/BookButton";
+import BookButton from "../../components/BookButton";
 import * as Yup from "yup";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";

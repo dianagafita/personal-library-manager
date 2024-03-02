@@ -21,3 +21,7 @@ export const bookById = async (url: string): Promise<any> => {
 export const addBook = async (values: FormData) => {
   await axios.post("http://localhost:5001/books", values);
 };
+
+export const editBook = async (values: FormData, id: string | undefined) => {
+  await axios.put(`http://localhost:5001/books/${id}`, values);
+};
