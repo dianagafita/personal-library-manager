@@ -15,7 +15,7 @@ code {
 }
 
 :root {
-  --main-color: rgb(44, 8, 50);
+  --main-color: rgb(28, 5, 32);
   --second-color: #e03927;
 }
 
@@ -36,4 +36,11 @@ code {
   max-height: 200px;
   margin-top: 10px;
   object-fit: cover;
+}
+
+.information-text {
+  text-align: center;
+  margin-top: 50% !important;
+  font-size: 1.2rem !important;
+  color: var(--main-color);
 }

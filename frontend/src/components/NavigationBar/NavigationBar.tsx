@@ -74,7 +74,7 @@ export default function NavigationBar({ children }: NavigationBarProps) {
         sx={{
           gridArea: "content",
           paddingTop: 7,
-          backgroundColor: "rgb(238, 236, 236)",
+          backgroundColor: "rgb(240, 240, 240)",
         }}
       >
         {children}
@@ -93,7 +93,13 @@ export default function NavigationBar({ children }: NavigationBarProps) {
       >
         <MenuDrawer navItems={navItems} onClick={handleMenuToggle} />
       </Drawer>
-      <footer style={{ gridArea: "footer" }}>
+      <footer
+        style={{
+          gridArea: "footer",
+          backgroundColor: "var(--main-color",
+          height: "2.5rem",
+        }}
+      >
         <Typography variant="body2" align="center" color="textSecondary">
           Footer
         </Typography>

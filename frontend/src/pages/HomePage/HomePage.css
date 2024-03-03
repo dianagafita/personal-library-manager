@@ -1,11 +1,8 @@
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap");
-
-.home-page {
+.home-page-title {
   background: linear-gradient(
       to top,
       rgba(245, 246, 252, 0.2),
-      rgba(44, 8, 50, 0.7)
+      rgba(28, 5, 32, 0.5)
     ),
     url("../../assets/background.webp");
   background-size: contain;
@@ -15,21 +12,41 @@
 
 .home-page-title-container {
   position: absolute;
-  top: 2rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   font-family: "Noto Serif";
   color: white;
+  min-width: 200px;
   text-align: center;
 }
 
 .home-page-title-container h1 {
   font-weight: 600;
   font-size: 2rem;
-  margin-bottom: 4rem;
+  margin: 0;
 }
 
 .home-page-title-container a {
   color: white;
   text-decoration: none;
-  margin-left: 15rem;
-  font-weight: 500;
+  position: absolute;
+  right: 0;
+  font-weight: 600;
+}
+.home-page-title-container a:hover {
+  color: var(--main-color);
+}
+
+.home-page-content {
+  font-size: 1.5rem;
+  margin: 2rem auto;
+  font-family: "Noto Serif";
+  font-weight: 600;
+}
+
+.home-page-content-container {
+  margin: 3rem 0;
+  padding: 1rem;
+  background-color: white;
 }
