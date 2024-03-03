@@ -7,11 +7,9 @@ import "./AllBooksPage.css";
 import { Link } from "react-router-dom";
 import BookButton from "../../components/BookButton";
 import useSWR from "swr";
-import { allBooks } from "../../services/bookServices";
+import { getBooks } from "../../services/bookServices";
 import Collapse from "@mui/material/Collapse";
-
 import IconButton, { IconButtonProps } from "@mui/material/IconButton";
-
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useState } from "react";
 import { styled } from "@mui/material/styles";
@@ -41,7 +39,7 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 }));
 
 export default function AllBooksPage() {
-  const { data, error } = useSWR("http://localhost:5001/books", allBooks);
+  const { data, error } = useSWR("http://localhost:5001/books", getBooks);
   const [expanded, setExpanded] = useState(false);
 
   const handleExpandClick = () => {

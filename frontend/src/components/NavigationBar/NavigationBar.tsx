@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from "react";
+import { ReactNode, useState } from "react";
 import {
   AppBar,
   Box,
@@ -70,7 +70,15 @@ export default function NavigationBar({ children }: NavigationBarProps) {
           </Box>
         </Toolbar>
       </AppBar>
-      <Box sx={{ gridArea: "content", paddingTop: 7 }}>{children}</Box>
+      <Box
+        sx={{
+          gridArea: "content",
+          paddingTop: 7,
+          backgroundColor: "rgb(238, 236, 236)",
+        }}
+      >
+        {children}
+      </Box>
       <Drawer
         variant="temporary"
         open={mobileMenu}

@@ -1,12 +1,6 @@
-import dotenv from "dotenv";
-import { dbconnect } from "./config/database.config.js";
-dotenv.config();
 import express from "express";
 import cors from "cors";
 import multer from "multer";
-import { BookModel } from "./models/book.model.js";
-
-dbconnect();
 
 const app = express();
 app.use(cors());
@@ -86,10 +80,10 @@ app.put("/books/:id", upload.single("img"), (req, res) => {
 });
 
 // // Delete a book
-// app.delete("/books/:id", (req, res) => {
-//   books = books.filter((book) => book.id !== parseInt(req.params.id));
-//   res.status(204).send();
-// });
+app.delete("/books/:id", (req, res) => {
+  books = books.filter((book) => book.id !== parseInt(req.params.id));
+  res.status(204).send();
+});
 
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
