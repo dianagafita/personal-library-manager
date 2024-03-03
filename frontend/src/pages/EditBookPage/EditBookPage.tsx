@@ -4,8 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import * as Yup from "yup";
 import BookButton from "../../components/BookButton";
 import useSWR from "swr";
-import axios from "axios";
-import { getBooks } from "../../services/bookServices";
+import { deleteBook, editBook, getBooks } from "../../services/bookServices";
 import { useEffect, useState } from "react";
 import Information from "../../components/Information";
 import PhotoButton from "../../components/PhotoButton";
@@ -28,7 +27,7 @@ const validationSchema = Yup.object().shape({
 });
 
 export default function EditBookPage() {
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams<{ id?: string }>();
 
   const { data: book, error: fetchingBookError } = useSWR(
     `http://localhost:5001/books/${id}`,
@@ -61,15 +60,10 @@ export default function EditBookPage() {
   }, [book]);
 
   const handleSubmit = async (values: FormValues) => {
-    console.log(values);
-
-    await axios.put(`http://localhost:5001/books/${id}`, values, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    if (id) {
+      editBook(id, values);
+    }
     navigate("/allBooks");
-    console.log(values);
   };
 
   const formik = useFormik({
@@ -92,13 +86,12 @@ export default function EditBookPage() {
   };
 
   const handleDelete = async () => {
-    await axios.delete(`http://localhost:5001/books/${id}`, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    if (id) {
+      deleteBook(id);
+    }
     navigate("/allBooks");
   };
+
   if (fetchingBookError)
     return <Information text="Error fetching book data." />;
   if (!book) return <Information text="Loading..." />;

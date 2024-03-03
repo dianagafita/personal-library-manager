@@ -8,6 +8,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import PhotoButton from "../../components/PhotoButton";
 import Title from "../../components/Title";
+import { addBook } from "../../services/bookServices";
 
 interface FormData {
   title: string;
@@ -46,11 +47,7 @@ export default function AddBookPage() {
       formData.append("description", values.description);
       formData.append("img", values.img as File);
 
-      await axios.post("http://localhost:5001/books", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      addBook(values);
       navigate("/allBooks");
     } catch (error) {
       console.error("Error submitting form:", error);
