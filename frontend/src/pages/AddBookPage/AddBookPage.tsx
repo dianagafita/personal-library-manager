@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { TextField, Box, InputLabel, Input } from "@mui/material";
+import { TextField, Grid, InputLabel, Input } from "@mui/material";
 import { useFormik } from "formik";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import BookButton from "../../components/BookButton";
 import * as Yup from "yup";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import PhotoButton from "../../components/PhotoButton";
+import Title from "../../components/Title";
+import { addBook } from "../../services/bookServices";
 
 interface FormData {
   title: string;
@@ -31,8 +32,7 @@ const validationSchema = Yup.object().shape({
   img: Yup.mixed().required("Image is required"),
 });
 
-const AddBookPage: React.FC = () => {
-  const isNonMobile = useMediaQuery("(min-width:600px)");
+export default function AddBookPage() {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const navigate = useNavigate();
 
@@ -45,11 +45,7 @@ const AddBookPage: React.FC = () => {
       formData.append("description", values.description);
       formData.append("img", values.img as File);
 
-      await axios.post("http://localhost:5001/books", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      addBook(values);
       navigate("/allBooks");
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -75,98 +71,109 @@ const AddBookPage: React.FC = () => {
   };
 
   return (
-    <Box m="100px">
-      <form onSubmit={formik.handleSubmit}>
-        <Box
-          display="grid"
-          gap="30px"
-          gridTemplateColumns="repeat(4, minmax(0, 1fr))"
-          sx={{
-            "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
-          }}
-        >
-          <TextField
-            id="title"
-            name="title"
-            label="Title"
-            variant="filled"
-            fullWidth
-            sx={{ gridColumn: "span 4" }}
-            value={formik.values.title}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-          />
-          <TextField
-            id="author"
-            name="author"
-            label="Author"
-            variant="filled"
-            fullWidth
-            sx={{ gridColumn: "span 2" }}
-            value={formik.values.author}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-          />
-          <TextField
-            id="genre"
-            name="genre"
-            label="Genre"
-            variant="filled"
-            fullWidth
-            sx={{ gridColumn: "span 2" }}
-            value={formik.values.genre}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-          />
-          <TextField
-            id="description"
-            name="description"
-            label="Description"
-            variant="filled"
-            fullWidth
-            sx={{ gridColumn: "span 4", gridRow: "span 4" }}
-            value={formik.values.description}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-          />
-          <Box
-            sx={{
-              gridColumn: "span 4",
-              margin: "auto",
-              textAlign: "center",
-            }}
-          >
-            <InputLabel htmlFor="img-input" sx={{ textAlign: "center" }}>
-              Choose Image
-            </InputLabel>
-
-            <Input
-              fullWidth
-              id="img"
-              name="img"
-              disableUnderline
-              type="file"
-              inputProps={{ accept: "image/*" }}
-              onChange={handleImageChange}
-              error={formik.touched.img && !!formik.errors.img}
-            />
-            {imagePreview && (
-              <img
-                src={imagePreview}
-                alt="Preview"
-                className="preview-images"
-              />
-            )}
-          </Box>
-        </Box>
-        <Box display="flex" justifyContent="center" mt="20px">
-          <BookButton type="submit" disabled={formik.isSubmitting}>
-            Add Book
-          </BookButton>
-        </Box>
-      </form>
-    </Box>
+    <>
+      <Title title="Add Book " />
+      <Grid container justifyContent="center">
+        <Grid item xs={10} md={10}>
+          <form onSubmit={formik.handleSubmit}>
+            <Grid container spacing={3}>
+              <Grid item xs={12}>
+                <TextField
+                  id="title"
+                  name="title"
+                  label="Title"
+                  variant="filled"
+                  fullWidth
+                  value={formik.values.title}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  error={formik.touched.title && Boolean(formik.errors.title)}
+                  helperText={formik.touched.title && formik.errors.title}
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <TextField
+                  id="author"
+                  name="author"
+                  label="Author"
+                  variant="filled"
+                  fullWidth
+                  value={formik.values.author}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  error={formik.touched.author && Boolean(formik.errors.author)}
+                  helperText={formik.touched.author && formik.errors.author}
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <TextField
+                  id="genre"
+                  name="genre"
+                  label="Genre"
+                  variant="filled"
+                  fullWidth
+                  value={formik.values.genre}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  error={formik.touched.genre && Boolean(formik.errors.genre)}
+                  helperText={formik.touched.genre && formik.errors.genre}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  id="description"
+                  name="description"
+                  label="Description"
+                  variant="filled"
+                  fullWidth
+                  value={formik.values.description}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  error={
+                    formik.touched.description &&
+                    Boolean(formik.errors.description)
+                  }
+                  helperText={
+                    formik.touched.description && formik.errors.description
+                  }
+                />
+              </Grid>
+              <Grid item xs={12} textAlign="center">
+                <InputLabel htmlFor="img-input">
+                  Choose Image
+                  <Input
+                    id="img-input"
+                    name="img"
+                    type="file"
+                    style={{ display: "none" }}
+                    onChange={handleImageChange}
+                    error={formik.touched.img && !!formik.errors.img}
+                  />
+                  <PhotoButton />
+                </InputLabel>
+                {!imagePreview && <span>No file chosen</span>}
+                {imagePreview && (
+                  <img
+                    src={imagePreview}
+                    alt="Preview"
+                    style={{
+                      maxWidth: "100%",
+                      maxHeight: "200px",
+                      marginTop: "10px",
+                      objectFit: "cover",
+                    }}
+                  />
+                )}
+              </Grid>
+              <Grid item xs={12} textAlign="center">
+                <BookButton type="submit" disabled={formik.isSubmitting}>
+                  Add Book
+                </BookButton>
+              </Grid>
+            </Grid>
+          </form>
+        </Grid>
+      </Grid>
+    </>
   );
-};
-
-export default AddBookPage;
+}

@@ -1,197 +1,14 @@
-// import { Box, Input, InputLabel, TextField } from "@mui/material";
-// import { useFormik } from "formik";
-// import useMediaQuery from "@mui/material/useMediaQuery";
-// import { useNavigate, useParams } from "react-router-dom";
-// import * as Yup from "yup";
-// import BookButton from "../../components/BookButton";
-// import useSWR from "swr";
-// import { allBooks } from "../../services/bookServices";
-// import axios from "axios";
-
-// interface FormValues {
-//   title: string;
-//   author: string;
-//   genre: string;
-//   description: string;
-//   img: File | null;
-// }
-
-// const validationSchema = Yup.object().shape({
-//   title: Yup.string().required("Title is required"),
-//   author: Yup.string().required("Author is required"),
-//   genre: Yup.string().required("Genre is required"),
-//   description: Yup.string().required("Description is required"),
-//   img: Yup.mixed().required("Image is required"),
-// });
-
-// export default function EditBookPage() {
-//   const { id } = useParams<{ id: string }>();
-
-//   const { data: book } = useSWR(
-//     id ? `http://localhost:5001/books/${id}` : null,
-//     allBooks
-//   );
-
-//   console.log(book);
-//   const isNonMobile = useMediaQuery("(min-width:600px)");
-//   const navigate = useNavigate();
-
-//   const initialValues: FormValues = {
-//     title: book?.title || "",
-//     author: book?.author || "",
-//     genre: book?.genre || "",
-//     description: book?.description || "",
-//     img: book?.img || null,
-//   };
-
-//   const formik = useFormik({
-//     initialValues,
-//     enableReinitialize: true,
-//     onSubmit: async (values: FormValues) => {
-//       try {
-//         const formData = new FormData();
-//         formData.append("title", values.title);
-//         formData.append("author", values.author);
-//         formData.append("genre", values.genre);
-//         formData.append("description", values.description);
-//         if (values.img instanceof File) {
-//           formData.append("img", values.img);
-//           console.log("f", formData);
-//         }
-
-//         await axios.put(`http://localhost:5001/books/${id}`, formData, {
-//           headers: {
-//             "Content-Type": "multipart/form-data",
-//           },
-//         });
-//         console.log(formData);
-//         navigate("/allBooks");
-//       } catch (error) {
-//         console.error("Error updating book:", error);
-//       }
-//     },
-//     validationSchema: validationSchema,
-//   });
-
-//   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-//     const file = event.target.files?.[0];
-//     if (file) {
-//       formik.setFieldValue("img", file);
-//       const reader = new FileReader();
-//       reader.onload = () => {};
-//       reader.readAsDataURL(file);
-//     }
-//   };
-
-//   const handleDelete = () => {};
-
-//   if (!book) return <div>Loading...</div>;
-
-//   return (
-//     <Box m="100px">
-//       <h1>{book.title}</h1>
-//       <form onSubmit={formik.handleSubmit}>
-//         <Box
-//           display="grid"
-//           gap="30px"
-//           gridTemplateColumns="repeat(4, minmax(0, 1fr))"
-//           sx={{
-//             "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
-//           }}
-//         >
-//           <TextField
-//             fullWidth
-//             variant="filled"
-//             type="text"
-//             label="Title"
-//             {...formik.getFieldProps("title")}
-//             error={formik.touched.title && !!formik.errors.title}
-//             helperText={formik.touched.title && formik.errors.title}
-//             onChange={formik.handleChange}
-//             sx={{ gridColumn: "span 4" }}
-//           />
-//           <TextField
-//             fullWidth
-//             variant="filled"
-//             type="text"
-//             label="Author"
-//             {...formik.getFieldProps("author")}
-//             error={formik.touched.author && !!formik.errors.author}
-//             helperText={formik.touched.author && formik.errors.author}
-//             sx={{ gridColumn: "span 2" }}
-//             onChange={formik.handleChange}
-//           />
-//           <TextField
-//             fullWidth
-//             variant="filled"
-//             type="text"
-//             label="Genre"
-//             {...formik.getFieldProps("genre")}
-//             error={formik.touched.genre && !!formik.errors.genre}
-//             helperText={formik.touched.genre && formik.errors.genre}
-//             sx={{ gridColumn: "span 2" }}
-//             onChange={formik.handleChange}
-//           />
-
-//           <TextField
-//             fullWidth
-//             variant="filled"
-//             type="text"
-//             label="Description"
-//             {...formik.getFieldProps("description")}
-//             error={formik.touched.description && !!formik.errors.description}
-//             helperText={formik.touched.description && formik.errors.description}
-//             sx={{ gridColumn: "span 4", gridRow: "span 4" }}
-//             onChange={formik.handleChange}
-//           />
-//           <Box
-//             sx={{
-//               gridColumn: "span 4",
-//               margin: "auto",
-//               textAlign: "center",
-//             }}
-//           >
-//             <InputLabel htmlFor="img-input" sx={{ textAlign: "center" }}>
-//               Choose Image
-//             </InputLabel>
-
-//             <Input
-//               fullWidth
-//               id="img-input"
-//               title="img"
-//               disableUnderline
-//               type="file"
-//               inputProps={{ accept: "image/*" }}
-//               onChange={handleImageChange}
-//             />
-//             <img
-//               src={`data:image/jpeg;base64, ${book.img}`}
-//               alt=""
-//               classtitle="preview-images"
-//             />
-//           </Box>
-//         </Box>
-//         <Box display="flex" justifyContent="center" mt="20px">
-//           <BookButton type="submit">Save Changes</BookButton>
-//           <BookButton type="button" onClick={handleDelete}>
-//             Delete book
-//           </BookButton>
-//         </Box>
-//       </form>
-//     </Box>
-//   );
-// }
-
-import { Box, Input, InputLabel, TextField } from "@mui/material";
+import { Grid, Input, InputLabel, TextField } from "@mui/material";
 import { useFormik } from "formik";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import { useNavigate, useParams } from "react-router-dom";
 import * as Yup from "yup";
 import BookButton from "../../components/BookButton";
 import useSWR from "swr";
-import axios from "axios";
-import { allBooks } from "../../services/bookServices";
+import { deleteBook, editBook, getBooks } from "../../services/bookServices";
 import { useEffect, useState } from "react";
+import Information from "../../components/Information";
+import PhotoButton from "../../components/PhotoButton";
+import Title from "../../components/Title";
 
 interface FormValues {
   title: string;
@@ -210,12 +27,14 @@ const validationSchema = Yup.object().shape({
 });
 
 export default function EditBookPage() {
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams<{ id?: string }>();
 
-  const { data: book } = useSWR(`http://localhost:5001/books/${id}`, allBooks);
+  const { data: book, error: fetchingBookError } = useSWR(
+    `http://localhost:5001/books/${id}`,
+    getBooks
+  );
   const [imagePreview, setImagePreview] = useState<string>();
 
-  const isNonMobile = useMediaQuery("(min-width:600px)");
   const navigate = useNavigate();
   const [initialValues, setInitialValues] = useState<FormValues>({
     title: "",
@@ -241,15 +60,11 @@ export default function EditBookPage() {
   }, [book]);
 
   const handleSubmit = async (values: FormValues) => {
-    console.log(values);
-
-    await axios.put(`http://localhost:5001/books/${id}`, values, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    if (id) {
+      editBook(id, values);
+      console.log(values);
+    }
     navigate("/allBooks");
-    console.log(values);
   };
 
   const formik = useFormik({
@@ -263,6 +78,7 @@ export default function EditBookPage() {
     const file = event.target.files?.[0];
     if (file) {
       formik.setFieldValue("img", file);
+
       const reader = new FileReader();
       reader.onload = () => {
         setImagePreview(reader.result as string);
@@ -271,98 +87,113 @@ export default function EditBookPage() {
     }
   };
 
-  const handleDelete = () => {};
+  const handleDelete = async () => {
+    if (id) {
+      deleteBook(id);
+    }
+    navigate("/allBooks");
+  };
 
-  if (!book) return <div>Loading...</div>;
+  if (fetchingBookError)
+    return <Information text="Error fetching book data." />;
+  if (!book) return <Information text="Loading..." />;
 
   return (
-    <Box m="100px">
-      <h1>{book.title}</h1>
-      <form onSubmit={formik.handleSubmit}>
-        <Box
-          display="grid"
-          gap="30px"
-          gridTemplateColumns="repeat(4, minmax(0, 1fr))"
-          sx={{
-            "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
-          }}
-        >
-          <TextField
-            fullWidth
-            variant="filled"
-            type="text"
-            label="Title"
-            onChange={formik.handleChange}
-            name="title"
-            value={formik.values.title}
-            sx={{ gridColumn: "span 4" }}
-          />
-          <TextField
-            fullWidth
-            variant="filled"
-            type="text"
-            label="Author"
-            onChange={formik.handleChange}
-            name="author"
-            value={formik.values.author}
-            sx={{ gridColumn: "span 2" }}
-          />
-          <TextField
-            fullWidth
-            variant="filled"
-            type="text"
-            label="Genre"
-            onChange={formik.handleChange}
-            name="genre"
-            value={formik.values.genre}
-            sx={{ gridColumn: "span 2" }}
-          />
-
-          <TextField
-            fullWidth
-            variant="filled"
-            type="text"
-            label="Description"
-            onChange={formik.handleChange}
-            name="description"
-            value={formik.values.description}
-            sx={{ gridColumn: "span 4", gridRow: "span 4" }}
-          />
-          <Box
-            sx={{
-              gridColumn: "span 4",
-              margin: "auto",
-              textAlign: "center",
-            }}
-          >
-            <InputLabel htmlFor="img-input" sx={{ textAlign: "center" }}>
-              Choose Image
-            </InputLabel>
-
-            <Input
-              fullWidth
-              id="img-input"
-              title="img"
-              disableUnderline
-              type="file"
-              inputProps={{ accept: "image/*" }}
-              onChange={handleImageChange}
-            />
-            {/* <img
-              src={`data:image/jpeg;base64, ${book.img}`}
-              alt=""
-              className="preview-images"
-            /> */}
-            <img src={imagePreview} alt="Preview" className="preview-images" />
-          </Box>
-        </Box>
-        <Box display="flex" justifyContent="center" mt="20px">
-          <BookButton type="submit">Save Changes</BookButton>
-          <BookButton type="button" onClick={handleDelete}>
-            Delete book
-          </BookButton>
-        </Box>
-      </form>
-    </Box>
+    <>
+      <Title title={book.title} />
+      <Grid container justifyContent="center">
+        <Grid item xs={10} md={10}>
+          <form onSubmit={formik.handleSubmit}>
+            <Grid container spacing={3}>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  variant="filled"
+                  type="text"
+                  label="Title"
+                  onChange={formik.handleChange}
+                  name="title"
+                  value={formik.values.title}
+                  error={formik.touched.title && Boolean(formik.errors.title)}
+                  helperText={formik.touched.title && formik.errors.title}
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <TextField
+                  fullWidth
+                  variant="filled"
+                  type="text"
+                  label="Author"
+                  onChange={formik.handleChange}
+                  name="author"
+                  value={formik.values.author}
+                  error={formik.touched.title && Boolean(formik.errors.title)}
+                  helperText={formik.touched.title && formik.errors.title}
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <TextField
+                  fullWidth
+                  variant="filled"
+                  type="text"
+                  label="Genre"
+                  onChange={formik.handleChange}
+                  name="genre"
+                  value={formik.values.genre}
+                  error={formik.touched.title && Boolean(formik.errors.title)}
+                  helperText={formik.touched.title && formik.errors.title}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  variant="filled"
+                  type="text"
+                  label="Description"
+                  onChange={formik.handleChange}
+                  name="description"
+                  value={formik.values.description}
+                  error={formik.touched.title && Boolean(formik.errors.title)}
+                  helperText={formik.touched.title && formik.errors.title}
+                />
+              </Grid>
+              <Grid item xs={12} textAlign="center">
+                <InputLabel htmlFor="img-input">
+                  Choose Image
+                  <Input
+                    id="img-input"
+                    name="img"
+                    type="file"
+                    style={{ display: "none" }}
+                    onChange={handleImageChange}
+                    error={formik.touched.img && !!formik.errors.img}
+                  />
+                  <PhotoButton />
+                </InputLabel>
+                {!imagePreview && <span>No file chosen</span>}
+                {imagePreview && (
+                  <img
+                    src={imagePreview}
+                    alt="Preview"
+                    style={{
+                      maxWidth: "100%",
+                      maxHeight: "200px",
+                      marginTop: "10px",
+                      objectFit: "cover",
+                    }}
+                  />
+                )}
+              </Grid>
+              <Grid item xs={12} textAlign="center">
+                <BookButton type="submit">Save Changes</BookButton>
+                <BookButton type="button" onClick={handleDelete}>
+                  Delete book
+                </BookButton>
+              </Grid>
+            </Grid>
+          </form>
+        </Grid>
+      </Grid>
+    </>
   );
 }

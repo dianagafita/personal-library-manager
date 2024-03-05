@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from "react";
+import { ReactNode, useState } from "react";
 import {
   AppBar,
   Box,
@@ -61,7 +61,11 @@ export default function NavigationBar({ children }: NavigationBarProps) {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Library
           </Typography>
-          <Box sx={{ display: { xs: "none", sm: "block" } }}>
+          <Box
+            sx={{
+              display: { xs: "none", sm: "block" },
+            }}
+          >
             {navItems.map((item) => (
               <Link to={`/${item?.route}`} className="navigation-element-title">
                 {item?.title}
@@ -70,7 +74,15 @@ export default function NavigationBar({ children }: NavigationBarProps) {
           </Box>
         </Toolbar>
       </AppBar>
-      <Box sx={{ gridArea: "content", paddingTop: 7 }}>{children}</Box>
+      <Box
+        sx={{
+          gridArea: "content",
+          paddingTop: 7,
+          backgroundColor: "rgb(240, 240, 240)",
+        }}
+      >
+        {children}
+      </Box>
       <Drawer
         variant="temporary"
         open={mobileMenu}
@@ -85,7 +97,13 @@ export default function NavigationBar({ children }: NavigationBarProps) {
       >
         <MenuDrawer navItems={navItems} onClick={handleMenuToggle} />
       </Drawer>
-      <footer style={{ gridArea: "footer" }}>
+      <footer
+        style={{
+          gridArea: "footer",
+          backgroundColor: "var(--main-color",
+          height: "2.5rem",
+        }}
+      >
         <Typography variant="body2" align="center" color="textSecondary">
           Footer
         </Typography>
