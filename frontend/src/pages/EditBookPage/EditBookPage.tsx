@@ -62,7 +62,6 @@ export default function EditBookPage() {
   const handleSubmit = async (values: FormValues) => {
     if (id) {
       editBook(id, values);
-      console.log(values);
     }
     navigate("/allBooks");
   };
