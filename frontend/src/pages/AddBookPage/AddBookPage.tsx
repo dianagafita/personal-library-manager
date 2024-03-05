@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { TextField, Grid, InputLabel, Input } from "@mui/material";
 import { useFormik } from "formik";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import BookButton from "../../components/BookButton";
 import * as Yup from "yup";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import PhotoButton from "../../components/PhotoButton";
 import Title from "../../components/Title";
@@ -89,6 +87,8 @@ export default function AddBookPage() {
                   value={formik.values.title}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
+                  error={formik.touched.title && Boolean(formik.errors.title)}
+                  helperText={formik.touched.title && formik.errors.title}
                 />
               </Grid>
               <Grid item xs={12} md={6}>
@@ -101,6 +101,8 @@ export default function AddBookPage() {
                   value={formik.values.author}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
+                  error={formik.touched.author && Boolean(formik.errors.author)}
+                  helperText={formik.touched.author && formik.errors.author}
                 />
               </Grid>
               <Grid item xs={12} md={6}>
@@ -113,6 +115,8 @@ export default function AddBookPage() {
                   value={formik.values.genre}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
+                  error={formik.touched.genre && Boolean(formik.errors.genre)}
+                  helperText={formik.touched.genre && formik.errors.genre}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -125,6 +129,13 @@ export default function AddBookPage() {
                   value={formik.values.description}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
+                  error={
+                    formik.touched.description &&
+                    Boolean(formik.errors.description)
+                  }
+                  helperText={
+                    formik.touched.description && formik.errors.description
+                  }
                 />
               </Grid>
               <Grid item xs={12} textAlign="center">
@@ -145,7 +156,12 @@ export default function AddBookPage() {
                   <img
                     src={imagePreview}
                     alt="Preview"
-                    className="preview-images"
+                    style={{
+                      maxWidth: "100%",
+                      maxHeight: "200px",
+                      marginTop: "10px",
+                      objectFit: "cover",
+                    }}
                   />
                 )}
               </Grid>

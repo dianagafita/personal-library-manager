@@ -5,5 +5,16 @@ interface InfoProps {
 }
 
 export default function Information({ text }: InfoProps) {
-  return <Typography className="information-text">{text}</Typography>;
+  return (
+    <Typography
+      style={{
+        textAlign: "center",
+        marginTop: "50%",
+        fontSize: 18,
+        color: "var(--main-color)",
+      }}
+    >
+      {text}
+    </Typography>
+  );
 }

@@ -34,6 +34,7 @@
   right: 0;
   font-weight: 600;
 }
+
 .home-page-title-container a:hover {
   color: var(--main-color);
 }
@@ -46,7 +47,7 @@
 }
 
 .home-page-content-container {
-  margin: 3rem 0;
+  margin: 2rem 0 1rem 0;
   padding: 1rem;
   background-color: white;
 }

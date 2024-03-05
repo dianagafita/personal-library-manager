@@ -17,7 +17,6 @@ import Collapse from "@mui/material/Collapse";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { IconButtonProps } from "@mui/material";
 import styled from "@emotion/styled";
-import "./AllBooksPage.css";
 import Information from "../../components/Information";
 import Title from "../../components/Title";
 
@@ -63,9 +62,11 @@ export default function AllBooksPage() {
   if (!books) return <Information text="Loading..." />;
 
   return (
-    <section className="books-page-container">
+    <section style={{ margin: "1rem" }}>
       <Title title="Books" />
-      {!books && <Information text="There are no books added yet." />}
+      {books.length === 0 && (
+        <Information text="There are no books added yet." />
+      )}
       {books && (
         <List sx={{ width: "100%" }}>
           {books.map((book: Data) => (

@@ -62,6 +62,7 @@ export default function EditBookPage() {
   const handleSubmit = async (values: FormValues) => {
     if (id) {
       editBook(id, values);
+      console.log(values);
     }
     navigate("/allBooks");
   };
@@ -77,6 +78,7 @@ export default function EditBookPage() {
     const file = event.target.files?.[0];
     if (file) {
       formik.setFieldValue("img", file);
+
       const reader = new FileReader();
       reader.onload = () => {
         setImagePreview(reader.result as string);
@@ -112,6 +114,8 @@ export default function EditBookPage() {
                   onChange={formik.handleChange}
                   name="title"
                   value={formik.values.title}
+                  error={formik.touched.title && Boolean(formik.errors.title)}
+                  helperText={formik.touched.title && formik.errors.title}
                 />
               </Grid>
               <Grid item xs={12} md={6}>
@@ -123,6 +127,8 @@ export default function EditBookPage() {
                   onChange={formik.handleChange}
                   name="author"
                   value={formik.values.author}
+                  error={formik.touched.title && Boolean(formik.errors.title)}
+                  helperText={formik.touched.title && formik.errors.title}
                 />
               </Grid>
               <Grid item xs={12} md={6}>
@@ -134,6 +140,8 @@ export default function EditBookPage() {
                   onChange={formik.handleChange}
                   name="genre"
                   value={formik.values.genre}
+                  error={formik.touched.title && Boolean(formik.errors.title)}
+                  helperText={formik.touched.title && formik.errors.title}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -145,6 +153,8 @@ export default function EditBookPage() {
                   onChange={formik.handleChange}
                   name="description"
                   value={formik.values.description}
+                  error={formik.touched.title && Boolean(formik.errors.title)}
+                  helperText={formik.touched.title && formik.errors.title}
                 />
               </Grid>
               <Grid item xs={12} textAlign="center">
@@ -165,7 +175,12 @@ export default function EditBookPage() {
                   <img
                     src={imagePreview}
                     alt="Preview"
-                    className="preview-images"
+                    style={{
+                      maxWidth: "100%",
+                      maxHeight: "200px",
+                      marginTop: "10px",
+                      objectFit: "cover",
+                    }}
                   />
                 )}
               </Grid>

@@ -61,7 +61,11 @@ export default function NavigationBar({ children }: NavigationBarProps) {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Library
           </Typography>
-          <Box sx={{ display: { xs: "none", sm: "block" } }}>
+          <Box
+            sx={{
+              display: { xs: "none", sm: "block" },
+            }}
+          >
             {navItems.map((item) => (
               <Link to={`/${item?.route}`} className="navigation-element-title">
                 {item?.title}

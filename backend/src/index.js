@@ -40,6 +40,7 @@ app.post("/books", upload.single("img"), (req, res) => {
 
 // Get all books
 app.get("/books", async (req, res) => {
+  console.log(books);
   res.json(books);
 });
 
@@ -53,6 +54,9 @@ app.get("/books/:id", async (req, res) => {
 
 app.put("/books/:id", upload.single("img"), (req, res) => {
   const index = books.findIndex((book) => book.id === parseInt(req.params.id));
+  const img = req.file;
+  const imgData = img ? img.buffer.toString("base64") : null;
+  req.body.img = imgData;
   if (index >= 0) {
     books[index] = { ...books[index], ...req.body };
     res.json(books[index]);
