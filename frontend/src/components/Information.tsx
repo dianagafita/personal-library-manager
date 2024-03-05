@@ -9,7 +9,7 @@ export default function Information({ text }: InfoProps) {
     <Typography
       style={{
         textAlign: "center",
-        marginTop: "50%",
+        marginTop: "10rem",
         fontSize: 18,
         color: "var(--main-color)",
       }}
