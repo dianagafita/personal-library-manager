@@ -40,7 +40,6 @@ app.post("/books", upload.single("img"), (req, res) => {
 
 // Get all books
 app.get("/books", async (req, res) => {
-  console.log(books);
   res.json(books);
 });
 
